@@ -96,34 +96,64 @@
                                 Dashboard
                                 <small>
                                     <i class="ace-icon fa fa-angle-double-right"></i>
-                                    Data Sub Kategori Berita
+                                    Edit  Berita
                                 </small>
                             </h1>
                         </div><!-- /.page-header -->
 <!--=========================Isi Konten========================-->
-<h3>Form Tambah Data Sub Kategori</h3><hr>
+<h3>Form Edit Data Berita</h3><hr>
 
 <div class="container">
         <div class="row">
             <div class="col-md-6">
              
              
-                        <form role="form" method="post" action="{{ route('add_subkategori')}}">
-                         {{ csrf_field() }}
-                            <div class="form-group">
-                                <label>Nama Sub Kategori</label>
-                                <input type="text" name="nama_sub_kategori" class="form-control" required >
-                              
+                        <form action="{{route('databerita.update' , $berita->id)}}" method="post">
+                
+                {{ csrf_field() }}
+            {{ method_field('PATCH') }}
+
+                             <div class="form-group">
+                                <label>Judul Berita</label>
+                                <input type="text" name="judul_berita" class="form-control" value="{{$berita->judul_berita}}" > 
                             </div>
                             <div class="form-group">
-                                <label>Status Sub Kategori</label>
-                                <select name="status" class="form-control">
-                                    <option>--pilih--</option>
-                                    <option value="aktif"> Aktif </option>
-                                    <option value="non aktif">Non Aktif </option>
+                                <label>isi Berita</label>
+                                <textarea name="isi_berita" class="form-control">{{$berita->isi_berita}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Link Video Embed / Channel Youtube</label>
+                                <input type="text" name="link_berita" class="form-control" required value="{{$berita->link_berita}}" > 
+                            </div>
+                            <div class="form-group">
+                                <label>Tanggal Upload</label>
+                                <input type="date" name="tanggal_upload" class="form-control" required value="{{$berita->tanggal_upload}}"> 
+                            </div>
+                                 <div class="form-group">
+                                <label>Nama Kategori</label>
+                                <select name="kategori" class="form-control">
+                                    <option>{{$berita->kategori}}</option>
+                                    @foreach($list as $list)
+                                    <option value="{{$list->nama_sub_kategori}}">{{$list->nama_sub_kategori}}</option>
+                                    @endforeach
                                 </select>
                                
                             </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Operator Penginput Berita</label>
+                                <input type="text" name="pengupload" class="form-control" required value="{{$berita->pengupload}}"> 
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select name="status" class="form-control">
+                                    <option>{{$berita->status}}</option>
+                                    <option value="aktif"> Aktif </option>
+                                    <option value="non aktif">Non Aktif </option>
+                                </select>
+                               </div>
+
                             <div class="form-group">
                                 <button type="submit" class="btn btn-info btn-sm">Save</button>
                             </div>

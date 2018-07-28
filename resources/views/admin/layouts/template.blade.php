@@ -614,16 +614,8 @@
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="">
-                                <a href="jqgrid.html">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Kategori Berita
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
                         <li class="">
-                                <a href="#">
+                                <a href="{{ route('databerita.index') }}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     Data Berita
                                 </a>
@@ -633,6 +625,14 @@
                         
 
                         </ul>
+                    </li>
+                    <li class="">
+                        <a href="{{route ('iklan.index')}}">
+                            <i class="menu-icon fa fa-money"></i>
+                            <span class="menu-text"> Data Iklan </span>
+                        </a>
+
+                        <b class="arrow"></b>
                     </li>
 
                     <li class="">
@@ -693,15 +693,7 @@
                         </ul>
                     </li>
 
-                    <li class="">
-                        <a href="{{ route('databerita') }}">
-                            <i class="menu-icon fa fa-list-alt"></i>
-                            <span class="menu-text"> Data Berita </span>
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
+                    
                         <li class="">
                         <a href="{{ route('register') }}">
                             <i class="menu-icon fa fa-users"></i>

@@ -96,65 +96,87 @@
                                 Dashboard
                                 <small>
                                     <i class="ace-icon fa fa-angle-double-right"></i>
-                                    Data Berita
+                                    Data Iklan
                                 </small>
                             </h1>
                         </div><!-- /.page-header -->
+<!--=========================Isi Konten========================-->
+<h3>Form Tambah Data Iklan</h3><hr>
 
-@if (session()->has('flash_notification.message'))
-<div class="row">
-<div class="col-sm-12">
-    <div class="alert alert-{{ session()->get('flash_notification.level') }}">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      {!! session()->get('flash_notification.message') !!}
+<div class="container">
+        <div class="row">
+            <div class="col-md-6">
+             
+             
+                        <form role="form" method="post" action="{{ route('iklan.store')}}"  enctype="multipart/form-data">
+                         {{ csrf_field() }}
+                            <div class="form-group">
+                                <label>Judul Iklan</label>
+                                <input type="text" name="judul_iklan" class="form-control" required > 
+                            </div>
+                            <div class="form-group">
+                                <label>Deskripsi Berita</label>
+                                <textarea name="deskripsi_iklan" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Pemesan Iklan</label>
+                                <input type="text" name="pemesan_iklan" class="form-control" required >
+                            </div>
+                            <div class="form-group">
+                                <label>Link Iklan</label>
+                                <input type="text" name="link_iklan" class="form-control" required >
+                            </div>
+                            <div class="form-group">
+                                <label>File Foto</label>
+                                <input type="file" name="foto_iklan" id="foto_iklan" class="form-control" required >
+                            </div>
+                          <!--  <div class="form-group">
+                                <label>File Video</label>
+                                <input type="file" name="video" id="video" class="form-control" required >
+                            </div>-->
+                            <div class="form-group">
+                                <label>Lokasi Iklan</label>
+                                <select name="lokasi" class="form-control">
+                                    <option>--pilih--</option>
+                                    <option value="header"> Header </option>
+                                    <option value="sidebar">Sidebar</option>
+                                    <option value="footer">Footer</option>
+                                </select>
+                               
+                            </div>
+                            <div class="form-group">
+                                <label>Tanggal Upload</label>
+                                <input type="date" name="tanggal_upload" class="form-control" required > 
+                            </div>
+                            <div class="form-group">
+                                <label>Tanggal Expired Iklan</label>
+                                <input type="date" name="tanggal_expired" class="form-control" required > 
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Operator Penginput Iklan</label>
+                                <input type="text" name="pengupload" class="form-control" required > 
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select name="status" class="form-control">
+                                    <option>--pilih--</option>
+                                    <option value="aktif"> Aktif </option>
+                                    <option value="non aktif">Non Aktif </option>
+                                </select>
+                               
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-info btn-sm">Save</button>
+                            </div>
+                           
+                        </form>
+                  
+           
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-@endif
-                       
-          
               
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <a href="{{route('databerita.create')}}"  style="text-decoration: none;"> <i class="fa fa-plus"></i> Tambah Data</a>
-            <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>Judul Berita</th>
-                <th>Penguload Berita</th>
-                <th>Tanggal Upload Berita</th>
-                <th>Kategori Berita</th>
-                <th>Link Video Berita</th>
-                <th>Status</th>
-                <th colspan="2">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($data as $d)
-                <tr>
-                    <td>{{ $d->judul_berita }}</td>
-                    <td>{{ $d->pengupload }}</td>
-                    <td>{{ $d->tanggal_upload }}</td>
-                    <td>{{ $d->kategori }}</td>
-                    <td>{{ $d->link_berita }}</td>
-                    <td>{{ $d->status }}</td> 
-                                       <td width="25"><a href="{{ route('databerita.edit', $d->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i>Edit </a> </td>
-                       <td><form action="{{ route('databerita.destroy', $d->id) }}" method="POST">
-                        <input type="hidden" name="_token" value="{{csrf_token()}}">
-                        <input type="hidden" name="_method" value="delete">
-                        <input class="btn btn-danger btn-sm" type="submit" name="name" value="delete">
-                    </form> 
-</td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-{{ $data->links() }}
-
-
-                                    </div>
-                                    
-                                </div>
+<!--=================================================-->
                                 <!-- PAGE CONTENT ENDS -->
                             </div><!-- /.col -->
                         </div><!-- /.row -->

@@ -2,13 +2,12 @@
  
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Berita;
-use App\Sub_kategori;
+use App\Iklan;
 use \Validator, \Input, \Redirect, \Session;
 use Illuminate\Http\Request;
  
-class DataberitaController extends Controller {
-  public function __construct()
+class IklanController extends Controller {
+      public function __construct()
     {
         $this->middleware('auth');
     }
@@ -19,8 +18,8 @@ class DataberitaController extends Controller {
      */
     public function index()
     {
-        $data = Berita::paginate(6);
-        return view('admin.databerita.index')->with('data', $data);
+        $data = Iklan::paginate(6);
+        return view('admin.iklan.index')->with('data', $data);
     }
  
     /**
@@ -30,8 +29,7 @@ class DataberitaController extends Controller {
      */
     public function create()
     {
-         $list=Sub_kategori::select('nama_sub_kategori')->get();
-         return view('admin.databerita.create')->with('list',$list);
+            return view('admin.iklan.create');
     }
  
     /**
@@ -42,31 +40,50 @@ class DataberitaController extends Controller {
     public function store(Request $request)
     {
          $this->validate($request, [
-          'judul_berita' => 'required',
-          'isi_berita' => 'required',
-          'link_berita' => 'required',
+          'judul_iklan' => 'required',
+          'deskripsi_iklan' => 'required',
+          'pemesan_iklan' => 'required',
+          'link_iklan' => 'required',
+          'lokasi' => 'required',
           'tanggal_upload' => 'required|date',
-          'kategori' => 'required',
+          'tanggal_expired' => 'required|date',
           'pengupload' => 'required',
           'status' => 'required',
+          'foto_iklan' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+          
                   ]);
+            if($request->hasFile('foto_iklan')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('foto_iklan')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('foto_iklan')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('foto_iklan')->storeAs('public/image', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
 
-        $berita = new Berita;
-        $berita->judul_berita = $request->judul_berita;
-        $berita->isi_berita = $request->isi_berita;
-        $berita->link_berita = $request->link_berita;
-
-        $berita->tanggal_upload = $request->tanggal_upload;
-        
-        $berita->kategori = $request->kategori;
-        $berita->pengupload = $request->pengupload;
-        $berita->status = $request->status;
-        $berita->save();
+        $iklan = new Iklan;
+        $iklan->judul_iklan = $request->judul_iklan;
+        $iklan->deskripsi_iklan = $request->deskripsi_iklan;
+        $iklan->pemesan_iklan = $request->pemesan_iklan;
+        $iklan->link_iklan = $request->link_iklan;
+        $iklan->lokasi = $request->lokasi;
+        $iklan->tanggal_upload = $request->tanggal_upload;
+        $iklan->tanggal_expired = $request->tanggal_expired;
+        $iklan->pengupload = $request->pengupload;
+        $iklan->status = $request->status;
+        $iklan->foto_iklan = $fileNameToStore;
+        $iklan->save();
         Session::flash("flash_notification", [
             "level"   => "success",
             "message" => "Successfully added data"
         ]);
-        return redirect()->route('databerita.index');
+        return redirect()->route('iklan.index');
     }
  
     /**

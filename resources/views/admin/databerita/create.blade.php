@@ -96,44 +96,73 @@
                                 Dashboard
                                 <small>
                                     <i class="ace-icon fa fa-angle-double-right"></i>
-                                    Data Sub Kategori Berita
+                                    Data Berita
                                 </small>
                             </h1>
                         </div><!-- /.page-header -->
+<!--=========================Isi Konten========================-->
+<h3>Form Tambah Data Berita</h3><hr>
 
-                       
+<div class="container">
+        <div class="row">
+            <div class="col-md-6">
+             
+             
+                        <form role="form" method="post" action="{{ route('databerita.store')}}">
+                         {{ csrf_field() }}
+                            <div class="form-group">
+                                <label>Judul Berita</label>
+                                <input type="text" name="judul_berita" class="form-control" required > 
+                            </div>
+                            <div class="form-group">
+                                <label>isi Berita</label>
+                                <textarea name="isi_berita" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Link Video Embed / Channel Youtube</label>
+                                <input type="text" name="link_berita" class="form-control" required > 
+                            </div>
+                            <div class="form-group">
+                                <label>Tanggal Upload</label>
+                                <input type="date" name="tanggal_upload" class="form-control" required > 
+                            </div>
+                                 <div class="form-group">
+                                <label>Nama Kategori</label>
+                                <select name="kategori" class="form-control">
+                                    <option>--Pilih--</option>
+                                    @foreach($list as $list)
+                                    <option value="{{$list->nama_sub_kategori}}">{{$list->nama_sub_kategori}}</option>
+                                    @endforeach
+                                </select>
+                               
+                            </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Operator Penginput Berita</label>
+                                <input type="text" name="pengupload" class="form-control" required > 
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select name="status" class="form-control">
+                                    <option>--pilih--</option>
+                                    <option value="aktif"> Aktif </option>
+                                    <option value="non aktif">Non Aktif </option>
+                                </select>
+                               
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-info btn-sm">Save</button>
+                            </div>
+                           
+                        </form>
+                  
+           
+            </div>
+        </div>
+    </div>
               
-                                <div class="row">
-                                	<div class="col-sm-12">
-                                        <a href="{{route ('subkategori/create')}}"  style="text-decoration: none;"> <i class="fa fa-plus"></i> Tambah Data</a>
-            <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>Nama Kategori</th>
-                <th>Status</th>
-                <th>Created</th>
-                <th>Updated</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($data as $d)
-                <tr>
-                    <td>{{ $d->nama_sub_kategori }}</td>
-                    <td>{{ $d->status }}</td>
-                    <td>{{ $d->created_at->format('d/M/Y') }}</td>
-                    <td>{{ $d->updated_at->format('d/M/Y') }}</td>
-                    <td ><a href="/edit_subkategori/{{$d->id_sub_kategori}}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i>Edit </a> <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"> </i>Hapus</a></td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-{{ $data->links() }}
-
-
-                                	</div>
-                                	
-                                </div>
+<!--=================================================-->
                                 <!-- PAGE CONTENT ENDS -->
                             </div><!-- /.col -->
                         </div><!-- /.row -->

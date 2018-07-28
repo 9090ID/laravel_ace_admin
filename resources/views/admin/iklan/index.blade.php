@@ -96,46 +96,69 @@
                                 Dashboard
                                 <small>
                                     <i class="ace-icon fa fa-angle-double-right"></i>
-                                    Edit Sub Kategori Berita
+                                    Data Iklan
                                 </small>
                             </h1>
                         </div><!-- /.page-header -->
-<!--=========================Isi Konten========================-->
-<h3>Form Edit Data Sub Kategori</h3><hr>
 
-<div class="container">
-        <div class="row">
-            <div class="col-md-6">
-             
-             
-                        <form role="form" method="post" action="/editsub/{{$editsub->id_sub_kategori}}/">
-                         {{ csrf_field() }}
-                            <div class="form-group">
-                                <label>Nama Sub Kategori</label>
-                                <input type="text" name="nama_sub_kategori" class="form-control" required value="{{$editsub->nama_sub_kategori}}" >
-                              
-                            </div>
-                            <div class="form-group">
-                                <label>Status Sub Kategori</label>
-                                <select name="status" class="form-control">
-                                    <option value="{{$editsub->status}}"></option>
-                                    <option value="aktif"> Aktif </option>
-                                    <option value="non aktif">Non Aktif </option>
-                                </select>
-                            </div>
-                            <input type="hidden" name="_method" value="put">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-info btn-sm">Save</button>
-                            </div>
-                           
-                        </form>
-                  
-           
-            </div>
-        </div>
+@if (session()->has('flash_notification.message'))
+<div class="row">
+<div class="col-sm-12">
+    <div class="alert alert-{{ session()->get('flash_notification.level') }}">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      {!! session()->get('flash_notification.message') !!}
     </div>
+  </div>
+</div>
+@endif
+                       
+          
               
-<!--=================================================-->
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <a href="{{route('iklan.create')}}"  style="text-decoration: none;"> <i class="fa fa-plus"></i> Tambah Data</a>
+            <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Judul Iklan</th>
+                <th>Penguload Iklan</th>
+                <th>Pemesan Iklan</th>
+                <th>Tanggal Iklan</th>
+                <th>Tanggal Expired  Iklan</th>
+                <th>Lokasi Iklan</th>
+                <th>Foto</th>
+                <th>Status</th>
+                <th colspan="2">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($data as $d)
+                <tr>
+                    <td>{{ $d->judul_iklan }}</td>
+                    <td>{{ $d->pengupload }}</td>
+                    <td>{{ $d->pemesan_iklan }}</td>
+                    <td>{{ $d->tanggal_upload }}</td>
+                    <td>{{ $d->tanggal_expired }}</td>
+                    <td>{{ $d->lokasi }}</td>
+                    <td>{{ $d->foto_iklan }}</td>
+                    <td>{{ $d->status }}</td> 
+                                       <td width="25"><a href="{{ route('databerita.edit', $d->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i>Edit </a> </td>
+                       <td><form action="{{ route('databerita.destroy', $d->id) }}" method="POST">
+                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                        <input type="hidden" name="_method" value="delete">
+                        <input class="btn btn-danger btn-sm" type="submit" name="name" value="delete">
+                    </form> 
+</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+{{ $data->links() }}
+
+
+                                    </div>
+                                    
+                                </div>
                                 <!-- PAGE CONTENT ENDS -->
                             </div><!-- /.col -->
                         </div><!-- /.row -->

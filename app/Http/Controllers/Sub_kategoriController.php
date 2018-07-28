@@ -7,7 +7,10 @@ use \Validator, \Input, \Redirect, \Session;
 use Illuminate\Http\Request;
  
 class Sub_kategoriController extends Controller {
- 
+  public function __construct()
+    {
+        $this->middleware('auth');
+    }
 	/**
 	 * Display a listing of the resource.
 	 *
