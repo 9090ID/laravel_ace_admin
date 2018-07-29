@@ -142,8 +142,8 @@
                     <td>{{ $d->lokasi }}</td>
                     <td>{{ $d->foto_iklan }}</td>
                     <td>{{ $d->status }}</td> 
-                                       <td width="25"><a href="{{ route('databerita.edit', $d->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i>Edit </a> </td>
-                       <td><form action="{{ route('databerita.destroy', $d->id) }}" method="POST">
+                                       <td width="25"><a href="{{ route('iklan.edit', $d->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i>Edit </a> </td>
+                       <td><form action="{{ route('iklan.destroy', $d->id) }}" method="POST">
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                         <input type="hidden" name="_method" value="delete">
                         <input class="btn btn-danger btn-sm" type="submit" name="name" value="delete">

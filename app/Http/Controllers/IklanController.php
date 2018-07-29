@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Iklan;
 use \Validator, \Input, \Redirect, \Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
  
 class IklanController extends Controller {
       public function __construct()
@@ -49,9 +50,8 @@ class IklanController extends Controller {
           'tanggal_expired' => 'required|date',
           'pengupload' => 'required',
           'status' => 'required',
-          'foto_iklan' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-          
-                  ]);
+          'foto_iklan' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1000',
+             ]);
             if($request->hasFile('foto_iklan')){
             // Get filename with the extension
             $filenameWithExt = $request->file('foto_iklan')->getClientOriginalName();
@@ -101,8 +101,7 @@ class IklanController extends Controller {
      */
     public function edit($id)
     {
-    $list=Sub_kategori::select('nama_sub_kategori')->get();
-    return view('admin.databerita.edit', ['berita' => Berita::findOrFail($id)])->with('list',$list);
+    return view('admin.iklan.edit', ['iklan' => Iklan::findOrFail($id)]);
     }
  
     /**
@@ -113,29 +112,51 @@ class IklanController extends Controller {
      */
     public function update(Request $request, $id)
     {
-        $judul_berita = $request->input('judul_berita');
-        $isi_berita = $request->input('isi_berita');
-        $link_berita = $request->input('link_berita');
+        $judul_iklan = $request->input('judul_iklan');
+        $deskripsi_iklan = $request->input('deskripsi_iklan');
+        $pemesan_iklan = $request->input('pemesan_iklan');
+        $link_iklan = $request->input('link_iklan');
+        $lokasi = $request->input('lokasi');
         $tanggal_upload = $request->input('tanggal_upload');
-        $kategori = $request->input('kategori');
+        $tanggal_expired = $request->input('tanggal_expired');
         $pengupload = $request->input('pengupload');
         $status = $request->input('status');
+       
+
+          if($request->hasFile('foto_iklan')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('foto_iklan')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('foto_iklan')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('foto_iklan')->storeAs('public/image', $fileNameToStore);
+        }
+
         //$password = $request->input('password');
         //$hash_password = Hash::make($password);
-        Berita::where('id', $id)->update([
-            'judul_berita' => $judul_berita,
-            'isi_berita' => $isi_berita,
-            'link_berita' => $link_berita,
+        Iklan::where('id', $id)->update([
+            'judul_iklan' => $judul_iklan,
+            'deskripsi_iklan' => $deskripsi_iklan,
+            'pemesan_iklan' => $pemesan_iklan,
+            'link_iklan' => $link_iklan,
+            'lokasi' => $lokasi,
             'tanggal_upload' => $tanggal_upload,
-            'kategori' => $kategori,
+            'tanggal_expired' => $tanggal_expired,
             'pengupload' => $pengupload,
             'status' => $status
         ]);
+         if($request->hasFile('foto_iklan')){
+            $iklan->foto_iklan = $fileNameToStore;
+        }
          Session::flash("flash_notification", [
             "level"   => "success",
             "message" => "Successfully Update data"
         ]);
-        return redirect()->route('databerita.index');
+        return redirect()->route('iklan.index');
     }
  
     /**
@@ -146,13 +167,17 @@ class IklanController extends Controller {
      */
     public function destroy($id)
     {
-        $d = Berita::findOrFail($id);
+        $d = Iklan::findOrFail($id);
+        if($d->foto_iklan !== 'noimage.jpg'){
+            //Delete image
+            Storage::delete('public/image'.$d->foto_iklan);
+        }
         $d->delete();
         Session::flash("flash_notification", [
             "level"   => "success",
             "message" => "Successfully deleted data"
         ]);
-        return redirect()->route('databerita.index');
+        return redirect()->route('iklan.index');
     }
  
 }

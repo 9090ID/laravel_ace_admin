@@ -96,45 +96,48 @@
                                 Dashboard
                                 <small>
                                     <i class="ace-icon fa fa-angle-double-right"></i>
-                                    Data Iklan
+                                    Edit Iklan
                                 </small>
                             </h1>
                         </div><!-- /.page-header -->
 <!--=========================Isi Konten========================-->
-<h3>Form Tambah Data Iklan</h3><hr>
+<h3>Form Edit Iklan</h3><hr>
 
 <div class="container">
         <div class="row">
             <div class="col-md-6">
              
              
-                        <form role="form" method="post" action="{{ route('iklan.store')}}"  enctype="multipart/form-data">
-                         {{ csrf_field() }}
-                            <div class="form-group">
+                        <form action="{{route('iklan.update' , $iklan->id)}}" method="post" enctype="multipart/form-data">
+                
+                {{ csrf_field() }}
+            {{ method_field('PATCH') }}
+
+                             <div class="form-group">
                                 <label>Judul Iklan</label>
-                                <input type="text" name="judul_iklan" class="form-control" required > 
+                                <input type="text" name="judul_iklan" class="form-control" value="{{$iklan->judul_iklan}}" > 
                             </div>
                             <div class="form-group">
                                 <label>Deskripsi Iklan</label>
-                                <textarea name="deskripsi_iklan" class="form-control"></textarea>
+                                <textarea name="deskripsi_iklan" class="form-control">{{$iklan->deskripsi_iklan}}</textarea>
                             </div>
                             <div class="form-group">
                                 <label>Pemesan Iklan</label>
-                                <input type="text" name="pemesan_iklan" class="form-control" required >
+                                <input type="text" name="pemesan_iklan" class="form-control" value="{{$iklan->pemesan_iklan}}">
                             </div>
                             <div class="form-group">
                                 <label>Link Iklan</label>
-                                <input type="text" name="link_iklan" class="form-control" required >
+                                <input type="text" name="link_iklan" class="form-control" value="{{$iklan->link_iklan}}" >
                             </div>
                             <div class="form-group">
                                 <label>File Foto</label>
-                                <input type="file" name="foto_iklan" id="foto_iklan" class="form-control" required >
+                                <input type="file" name="foto_iklan" id="foto_iklan" class="form-control" value="{{$iklan->foto_iklan}}" >
                             </div>
                           
                             <div class="form-group">
                                 <label>Lokasi Iklan</label>
                                 <select name="lokasi" class="form-control">
-                                    <option>--pilih--</option>
+                                    <option value="{{$iklan->lokasi}}">{{$iklan->lokasi}}</option>
                                     <option value="header"> Header </option>
                                     <option value="sidebar">Sidebar</option>
                                     <option value="footer">Footer</option>
@@ -143,25 +146,26 @@
                             </div>
                             <div class="form-group">
                                 <label>Tanggal Upload</label>
-                                <input type="date" name="tanggal_upload" class="form-control" required > 
+                                <input type="date" name="tanggal_upload" class="form-control" value="{{$iklan->tanggal_upload}}" > 
                             </div>
                             <div class="form-group">
                                 <label>Tanggal Expired Iklan</label>
-                                <input type="date" name="tanggal_expired" class="form-control" required > 
+                                <input type="date" name="tanggal_expired" class="form-control" value="{{$iklan->tanggal_expired}}"> 
                             </div>
                             <div class="form-group">
                                 <label>Nama Operator Penginput Iklan</label>
-                                <input type="text" name="pengupload" class="form-control" required > 
+                                <input type="text" name="pengupload" class="form-control" value="{{$iklan->pengupload}}"> 
                             </div>
                             <div class="form-group">
                                 <label>Status</label>
                                 <select name="status" class="form-control">
-                                    <option>--pilih--</option>
+                                    <option value="{{$iklan->status}}">{{$iklan->status}}</option>
                                     <option value="aktif"> Aktif </option>
                                     <option value="non aktif">Non Aktif </option>
                                 </select>
                                
                             </div>
+
                             <div class="form-group">
                                 <button type="submit" class="btn btn-info btn-sm">Save</button>
                             </div>
