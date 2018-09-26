@@ -1,3 +1,5 @@
+Hy Guys, This is project my study. if you know error of my project, please help me to repair code error. thank you guys
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
