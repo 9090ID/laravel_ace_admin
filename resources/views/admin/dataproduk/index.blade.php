@@ -96,73 +96,71 @@
                                 Dashboard
                                 <small>
                                     <i class="ace-icon fa fa-angle-double-right"></i>
-                                    Data Berita
+                                    Data Kuliner Jambi
                                 </small>
                             </h1>
                         </div><!-- /.page-header -->
-<!--=========================Isi Konten========================-->
-<h3>Form Tambah Data Berita</h3><hr>
 
-<div class="container">
-        <div class="row">
-            <div class="col-md-6">
-             
-             
-                        <form role="form" method="post" action="{{ route('databerita.store')}}">
-                         {{ csrf_field() }}
-                            <div class="form-group">
-                                <label>Judul Berita</label>
-                                <input type="text" name="judul_berita" class="form-control" required > 
-                            </div>
-                            <div class="form-group">
-                                <label>isi Berita</label>
-                                <textarea name="isi_berita" class="form-control"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Link Video Embed / Channel Youtube</label>
-                                <input type="text" name="link_berita" class="form-control" required > 
-                            </div>
-                            <div class="form-group">
-                                <label>Tanggal Upload</label>
-                                <input type="date" name="tanggal_upload" class="form-control" required > 
-                            </div>
-                                 <div class="form-group">
-                                <label>Nama Kategori</label>
-                                <select name="kategori" class="form-control">
-                                    <option>--Pilih--</option>
-                                    @foreach($list as $list)
-                                    <option value="{{$list->nama_sub_kategori}}">{{$list->nama_sub_kategori}}</option>
-                                    @endforeach
-                                </select>
-                               
-                            </div>
-
-                            
-                            <div class="form-group">
-                                <label>Nama Operator Penginput Berita</label>
-                                <input type="text" name="pengupload" class="form-control" required > 
-                            </div>
-                            <div class="form-group">
-                                <label>Status</label>
-                                <select name="status" class="form-control">
-                                    <option>--pilih--</option>
-                                    <option value="aktif"> Aktif </option>
-                                    <option value="non aktif">Non Aktif </option>
-                                </select>
-                               
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-info btn-sm">Save</button>
-                            </div>
-                           
-                        </form>
-                  
-           
-            </div>
-        </div>
+@if (session()->has('flash_notification.message'))
+<div class="row">
+<div class="col-sm-12">
+    <div class="alert alert-{{ session()->get('flash_notification.level') }}">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      {!! session()->get('flash_notification.message') !!}
     </div>
+  </div>
+</div>
+@endif
+                       
+          
               
-<!--=================================================-->
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <a href="{{route('dataproduk.create')}}"  style="text-decoration: none;"> <i class="fa fa-plus"></i> Tambah Data</a>
+            <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Nama Kuliner</th>
+                <th>Jam Buka</th>
+                <th>Jam Tutup</th>
+                <th>Nomor Telepon</th>
+                <th>Lokasi</th>
+                <th>Keterangan</th>
+                <th>Foto</th>
+                <th>Status</th>
+                <th colspan="2">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($data as $d)
+                <tr>
+                    <td>{{ $d->nm_kuliner }}</td>
+                    <td>{{ $d->jam_buka }}</td>
+                    <td>{{ $d->jam_tutup }}</td>
+                    <td>{{ $d->telepon }}</td>
+                    <td>{{ $d->lokasi }}</td>
+                    <td>{{ $d->ket }}</td>
+                    
+                    <td><img src="/storage/image/{{$d->gambar}}" class="thumbnail" height="70" width="70"></div></td>
+
+                    <td>{{ $d->status }}</td> 
+                                       <td width="25"><a href="{{ route('dataproduk.edit', $d->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i>Edit </a> </td>
+                       <td><form action="{{ route('dataproduk.destroy', $d->id) }}" method="POST">
+                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                        <input type="hidden" name="_method" value="delete">
+                        <input class="btn btn-danger btn-sm" type="submit" name="name" value="delete">
+                    </form> 
+</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+{{ $data->links() }}
+
+
+                                    </div>
+                                    
+                                </div>
                                 <!-- PAGE CONTENT ENDS -->
                             </div><!-- /.col -->
                         </div><!-- /.row -->

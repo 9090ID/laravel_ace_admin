@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+//Route::get('/', function () {
+  //  return view('welcome');
+//});
+Route::resource('/', 'FrontendController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -23,6 +23,11 @@ Route::resource('subberita', 'Sub_kategoriController');
 //===================create, update, delete, search berita ===========================//
 Route::resource('databerita', 'DataberitaController');
 //===================create, update, delete, search Data Iklan  ===========================//
+Route::resource('datavideo', 'IklanvideoController');
+//===================create, update, delete, search Data Iklan  ===========================//
 Route::resource('iklan', 'IklanController');
+
+Route::resource('dataproduk', 'DataProdukController');
+//===================create, update, delete, search Data Iklan  ===========================//
 Route::get('logout', 'Auth\LoginController@logout');
 

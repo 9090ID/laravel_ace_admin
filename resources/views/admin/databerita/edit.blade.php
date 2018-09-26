@@ -140,7 +140,6 @@
                                
                             </div>
 
-                            </div>
                             <div class="form-group">
                                 <label>Nama Operator Penginput Berita</label>
                                 <input type="text" name="pengupload" class="form-control" required value="{{$berita->pengupload}}"> 

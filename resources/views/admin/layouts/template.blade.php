@@ -395,7 +395,7 @@
 
                         <b class="arrow"></b>
                     </li>
-
+<!--
                     <li class="">
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-desktop"></i>
@@ -592,11 +592,19 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li>-->
+                    <li class="">
+                                <a href="{{ route('dataproduk.index') }}">
+                                    <i class="menu-icon fa fa-shopping-cart"></i>
+                                    Data Produk Kuliner
+                                </a>
+
+                                <b class="arrow"></b>
+                            </li>
 
                     <li class="">
                         <a href="#" class="dropdown-toggle">
-                            <i class="menu-icon fa fa-file-o"></i>
+                            <i class="menu-icon fa fa-folder-open"></i>
                             <span class="menu-text"> Data Berita </span>
 
                             <b class="arrow fa fa-angle-down"></b>
@@ -644,9 +652,9 @@
                             </li>
 
                         <li class="">
-                                <a href="#">
+                                <a href="{{route('datavideo.index')}}">
                                     <i class="menu-icon fa fa-caret-right"></i>
-                                    Iklan Video <sup>Processing..</sup>
+                                    Iklan Video <sup style="color:red"><i>New!</i></sup>
                                 </a>
                                 <b class="arrow"></b>
                             </li>
@@ -654,6 +662,8 @@
 
                         </ul>
                     </li>
+
+                    <!--
                     <li class="">
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-pencil-square-o"></i>
@@ -893,7 +903,7 @@
                                 <b class="arrow"></b>
                             </li>
                         </ul>
-                    </li>
+                    </li>-->
                 </ul><!-- /.nav-list -->
 
                 <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">

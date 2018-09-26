@@ -96,58 +96,60 @@
                                 Dashboard
                                 <small>
                                     <i class="ace-icon fa fa-angle-double-right"></i>
-                                    Data Berita
+                                    Tambah Data Produk
                                 </small>
                             </h1>
                         </div><!-- /.page-header -->
 <!--=========================Isi Konten========================-->
-<h3>Form Tambah Data Berita</h3><hr>
+<h3>Form Tambah Data Produk</h3><hr>
 
 <div class="container">
         <div class="row">
             <div class="col-md-6">
              
              
-                        <form role="form" method="post" action="{{ route('databerita.store')}}">
+                        <form role="form" method="post" action="{{ route('dataproduk.store')}}"  enctype="multipart/form-data">
                          {{ csrf_field() }}
                             <div class="form-group">
-                                <label>Judul Berita</label>
-                                <input type="text" name="judul_berita" class="form-control" required > 
+                                <label>Nama Kuliner</label>
+                                <input type="text" name="nm_kuliner" class="form-control" required > 
+                            </div>
+                              <div class="form-group">
+                                <label>Jam Buka</label>
+                                <input type="text" name="jam_buka" class="form-control" required >
                             </div>
                             <div class="form-group">
-                                <label>isi Berita</label>
-                                <textarea name="isi_berita" class="form-control"></textarea>
+                                <label>Jam Tutup</label>
+                                <input type="text" name="jam_tutup" class="form-control" required >
                             </div>
                             <div class="form-group">
-                                <label>Link Video Embed / Channel Youtube</label>
-                                <input type="text" name="link_berita" class="form-control" required > 
+                                <label>Lokasi</label>
+                                <input type="text" name="lokasi" class="form-control" required >
+                            </div>
+                             <div class="form-group">
+                                <label>Telepon</label>
+                                <input type="text" name="telepon" class="form-control" required >
+                            </div>
+                             <div class="form-group">
+                                <label>Alamat Maps / Kode Longitude</label>
+                                <input type="text" name="alamat_maps" class="form-control" required >
                             </div>
                             <div class="form-group">
-                                <label>Tanggal Upload</label>
-                                <input type="date" name="tanggal_upload" class="form-control" required > 
+                                <label>Foto</label>
+                                <input type="file" name="gambar" id="gambar" class="form-control" required >
                             </div>
-                                 <div class="form-group">
-                                <label>Nama Kategori</label>
-                                <select name="kategori" class="form-control">
-                                    <option>--Pilih--</option>
-                                    @foreach($list as $list)
-                                    <option value="{{$list->nama_sub_kategori}}">{{$list->nama_sub_kategori}}</option>
-                                    @endforeach
-                                </select>
-                               
+                           <div class="form-group">
+                                <label>Keterangan Kuliner</label>
+                                <textarea  name="ket" class="form-control" required > </textarea>
+                           
                             </div>
 
-                            
-                            <div class="form-group">
-                                <label>Nama Operator Penginput Berita</label>
-                                <input type="text" name="pengupload" class="form-control" required > 
-                            </div>
                             <div class="form-group">
                                 <label>Status</label>
                                 <select name="status" class="form-control">
                                     <option>--pilih--</option>
-                                    <option value="aktif"> Aktif </option>
-                                    <option value="non aktif">Non Aktif </option>
+                                    <option value="tampil"> Aktif </option>
+                                    <option value="hidden">Non Aktif </option>
                                 </select>
                                
                             </div>

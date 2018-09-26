@@ -6,7 +6,7 @@ use App\Berita;
 use App\Sub_kategori;
 use \Validator, \Input, \Redirect, \Session;
 use Illuminate\Http\Request;
- 
+ use Illuminate\Support\Str;
 class DataberitaController extends Controller {
   public function __construct()
     {
@@ -55,7 +55,7 @@ class DataberitaController extends Controller {
         $berita->judul_berita = $request->judul_berita;
         $berita->isi_berita = $request->isi_berita;
         $berita->link_berita = $request->link_berita;
-
+        $berita->slug = Str::slug($request->get('judul_berita'));
         $berita->tanggal_upload = $request->tanggal_upload;
         
         $berita->kategori = $request->kategori;
@@ -98,6 +98,7 @@ class DataberitaController extends Controller {
     {
         $judul_berita = $request->input('judul_berita');
         $isi_berita = $request->input('isi_berita');
+        $slug = Str::slug($request->get('judul_berita'));
         $link_berita = $request->input('link_berita');
         $tanggal_upload = $request->input('tanggal_upload');
         $kategori = $request->input('kategori');
@@ -108,6 +109,7 @@ class DataberitaController extends Controller {
         Berita::where('id', $id)->update([
             'judul_berita' => $judul_berita,
             'isi_berita' => $isi_berita,
+            'slug'=>$slug,
             'link_berita' => $link_berita,
             'tanggal_upload' => $tanggal_upload,
             'kategori' => $kategori,

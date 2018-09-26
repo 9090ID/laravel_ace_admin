@@ -140,7 +140,9 @@
                     <td>{{ $d->tanggal_upload }}</td>
                     <td>{{ $d->tanggal_expired }}</td>
                     <td>{{ $d->lokasi }}</td>
-                    <td>{{ $d->foto_iklan }}</td>
+                    
+                    <td><img src="/storage/image/{{$d->foto_iklan}}" class="thumbnail" height="70" width="70"></div></td>
+
                     <td>{{ $d->status }}</td> 
                                        <td width="25"><a href="{{ route('iklan.edit', $d->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i>Edit </a> </td>
                        <td><form action="{{ route('iklan.destroy', $d->id) }}" method="POST">
