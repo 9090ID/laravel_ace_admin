@@ -134,12 +134,17 @@
                                 <input type="text" name="telepon" class="form-control" value="{{$produk->telepon}}"> 
                             </div>
                              <div class="form-group">
-                                 <label>Alamat Maps / Kode Longitude</label>
-                                <input type="text" name="alamat_maps" class="form-control" value="{{$produk->alamat_maps}}"> 
+                                 <label>Latitudee</label>
+                                <input type="text" name="lat" class="form-control" value="{{$produk->lat}}"> 
+                            </div>
+                            <div class="form-group">
+                                 <label>Longitude</label>
+                                <input type="text" name="lon" class="form-control" value="{{$produk->lon}}"> 
                             </div>
 
                             <div class="form-group">
                                 <label>File Foto</label>
+                                 <img src="/produk1/{{$produk->gambar}}" class="thumbnail" height="70" width="70">
                                 <input type="file" name="gambar" id="gambar" class="form-control" value="{{$produk->gambar}}" >
                             </div>
                           

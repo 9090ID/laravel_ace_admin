@@ -46,7 +46,8 @@ class DataProdukController extends Controller {
           'jam_tutup' => 'required',
           'lokasi' => 'required',
           'telepon' => 'required',
-          'alamat_maps' => 'required',
+          'lat' => 'required',
+          'lon' => 'required',
           'ket' => 'required',
           'status' => 'required',
           'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1000',
@@ -55,13 +56,19 @@ class DataProdukController extends Controller {
             // Get filename with the extension
             $filenameWithExt = $request->file('gambar')->getClientOriginalName();
             // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $filename =  pathinfo($filenameWithExt, PATHINFO_FILENAME);
             // Get just ext
             $extension = $request->file('gambar')->getClientOriginalExtension();
             // Filename to store
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
             // Upload Image
-            $path = $request->file('gambar')->storeAs('public/image', $fileNameToStore);
+          //  $path = $request->file('gambar')->storeAs('public/image', $fileNameToStore);
+           // if(file_put_contents($fileNameToStore, $request->file('gambar'))){
+
+           // }
+            $file= $request->file('gambar');
+            if ($file->move('produk1/',$fileNameToStore))
+            {}
         } else {
             $fileNameToStore = 'noimage.jpg';
         }
@@ -72,7 +79,8 @@ class DataProdukController extends Controller {
         $produk->jam_tutup = $request->jam_tutup;
         $produk->lokasi = $request->lokasi;
         $produk->telepon = $request->telepon;
-        $produk->alamat_maps = $request->alamat_maps;
+        $produk->lat = $request->lat;
+        $produk->lon = $request->lon;
         $produk->ket = $request->ket;
         $produk->status = $request->status;
         $produk->gambar = $fileNameToStore;
@@ -110,49 +118,37 @@ class DataProdukController extends Controller {
      */
     public function update(Request $request, $id)
     {
-        $nm_kuliner = $request->input('nm_kuliner');
-        $jam_buka = $request->input('jam_buka');
-        $jam_tutup = $request->input('jam_tutup');
-        $lokasi = $request->input('lokasi');
-        $telepon = $request->input('telepon');
-        $alamat_maps = $request->input('alamat_maps');
-        $ket = $request->input('ket');
-        $status = $request->input('status');
+        $produk = Produk::find($id);
+        $produk->nm_kuliner = $request->input('nm_kuliner');
+        $produk->jam_buka = $request->input('jam_buka');
+        $produk->jam_tutup = $request->input('jam_tutup');
+        $produk->lokasi = $request->input('lokasi');
+        $produk->telepon = $request->input('telepon');
+        $produk->lat = $request->input('lat');
+        $produk->lon = $request->input('lon');
+        $produk->ket = $request->input('ket');
+        $produk->status = $request->input('status');
        
-
-          if($request->hasFile('gambar')){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('gambar')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('gambar')->getClientOriginalExtension();
+        $file = $request->file('gambar');
+         if($file != ""){
+            $ext = $file->getClientOriginalExtension();
+            $file = rand(10000, 50000) . '.' .$ext;
             // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            $fileNameToStore= $file.'_'.time().'.'.$ext;
             // Upload Image
-            $path = $request->file('gambar')->storeAs('public/image', $fileNameToStore);
+            //$path = $request->file('gambar')->storeAs('public/image', $fileNameToStore);
+     $file= $request->file('gambar');
+            if ($file->move('produk1/',$fileNameToStore))
+            {
+                 $produk->gambar =$fileNameToStore;
+            }        
+        } else {
+            $fileNameToStore = 'noimage.jpg';
         }
-
-        //$password = $request->input('password');
-        //$hash_password = Hash::make($password);
-        Produk::where('id', $id)->update([
-            'nm_kuliner' => $nm_kuliner,
-            'jam_buka' => $jam_buka,
-            'jam_tutup' => $jam_tutup,
-            'lokasi' => $lokasi,
-            'telepon' => $telepon,
-            'alamat_maps' => $alamat_maps,
-            'ket' => $ket,
-            'status' => $status
-        ]);
-         if($request->hasFile('gambar')){
-            $produk->gambar = $fileNameToStore;
-        }
-         Session::flash("flash_notification", [
-            "level"   => "success",
-            "message" => "Successfully Update data"
-        ]);
+        if($produk->save()){
+             Session::flash('flash_message', 'Student information is updated successfully!');
         return redirect()->route('dataproduk.index');
+    }
     }
  
     /**

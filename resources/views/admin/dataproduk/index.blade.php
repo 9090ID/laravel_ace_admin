@@ -141,7 +141,7 @@
                     <td>{{ $d->lokasi }}</td>
                     <td>{{ $d->ket }}</td>
                     
-                    <td><img src="/storage/image/{{$d->gambar}}" class="thumbnail" height="70" width="70"></div></td>
+                    <td><img src="/produk1/{{$d->gambar}}" class="thumbnail" height="70" width="70"></div></td>
 
                     <td>{{ $d->status }}</td> 
                                        <td width="25"><a href="{{ route('dataproduk.edit', $d->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i>Edit </a> </td>

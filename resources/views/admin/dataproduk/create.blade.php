@@ -131,9 +131,14 @@
                                 <input type="text" name="telepon" class="form-control" required >
                             </div>
                              <div class="form-group">
-                                <label>Alamat Maps / Kode Longitude</label>
-                                <input type="text" name="alamat_maps" class="form-control" required >
+                                <label>Lotitude</label>
+                                <input type="text" name="lat" class="form-control" required >
                             </div>
+                             <div class="form-group">
+                                <label>Longitude</label>
+                                <input type="text" name="lon" class="form-control" required >
+                            </div>
+
                             <div class="form-group">
                                 <label>Foto</label>
                                 <input type="file" name="gambar" id="gambar" class="form-control" required >
