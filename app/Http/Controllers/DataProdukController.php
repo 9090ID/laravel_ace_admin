@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Produk;
+use DB;
 use \Validator, \Input, \Redirect, \Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -171,5 +172,39 @@ class DataProdukController extends Controller {
         ]);
         return redirect()->route('dataproduk.index');
     }
+
+function get_list_json_produk(){
+    $list = DB::table('produk')->where('status','tampil')->get();
+
+    $arr = array();
+
+    foreach($list as $r){
+        $item = array("id"=>$r->id,"nm_kuliner"=>$r->nm_kuliner, 
+                "jam_buka"=>$r->jam_buka, "jam_tutup"=>$r->jam_tutup,
+                "lokasi"=>$r->lokasi,
+                "gambar"=>url('produk1/'.$r->gambar)
+            );
+        array_push($arr,$item);
+    }
+
+    return response()->json($arr);
+}
+
+
+function get_detail_produk($id){
+    $data = DB::table('produk')->where('id',$id)->first();
+    $item = array();
+    if($data){
+        $item = array("id"=>$data->id, "nm_kuliner"=>$data->nm_kuliner, 
+                "jam_buka"=>$data->jam_buka, "jam_tutup"=>$data->jam_tutup,
+                "lokasi"=>$data->lokasi, "telepon"=>$data->telepon,
+                "lat"=>$data->lat, "lon"=>$data->lon,
+                "gambar"=>url('produk1/'.$data->gambar),
+                "ket"=>$data->ket
+            );
+    }   
+
+    return response()->json($item);
+}
  
 }

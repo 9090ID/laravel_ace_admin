@@ -31,3 +31,5 @@ Route::resource('dataproduk', 'DataProdukController');
 //===================create, update, delete, search Data Iklan  ===========================//
 Route::get('logout', 'Auth\LoginController@logout');
 
+Route::get('list_produk','DataProdukController@get_list_json_produk' );
+Route::get('detail_produk/{id}','DataProdukController@get_detail_produk');
